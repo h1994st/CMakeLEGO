@@ -79,7 +79,7 @@ function(add_kernel_module)
   set(KBUILD_CMD
     $(MAKE) -C ${LKM_DIR} modules
     M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR}
-    EXTRA_CFLAGS='${_cflags_str}')
+    EXTRA_CFLAGS=${_cflags_str})
   set(LKM_FILE ${LKM_TARGET_NAME}.ko)
   set(LKM_KBUILD_FILE ${LKM_TARGET_NAME}_Kbuild)
 
@@ -107,7 +107,7 @@ function(add_kernel_module)
 
   # Add a dummy target for CLion IDE
   set(LKM_DUMMY_TARGET ${LKM_TARGET_NAME}_dummy)
-  add_library(${LKM_DUMMY_TARGET}
+  add_library(${LKM_DUMMY_TARGET} EXCLUDE_FROM_ALL
     ${LKM_TARGET_SRCS})
   target_include_directories(${LKM_DUMMY_TARGET}
     PRIVATE ${LKM_INCLUDE_DIRS})
